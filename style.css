@@ -117,6 +117,113 @@ html, body {
 
 .letter {
     text-align: left;
+    position: relative;
+}
+
+.letter-images {
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 0;
+    gap: 12px;
+}
+
+.letter-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.letter-img:hover {
+    transform: scale(1.05);
+}
+
+.letter-img-left {
+    border-radius: 12px 4px 12px 4px;
+}
+
+.letter-img-right {
+    border-radius: 4px 12px 4px 12px;
+}
+
+.letter-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Hearts around the letter */
+.letter-hearts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.letter-hearts span {
+    position: absolute;
+    font-size: 20px;
+    animation: floatAround 3s ease-in-out infinite;
+    opacity: 0.7;
+}
+
+.heart-left {
+    left: -30px;
+    top: 50%;
+    animation-delay: 0s;
+}
+
+.heart-right {
+    right: -30px;
+    top: 50%;
+    animation-delay: 1s;
+}
+
+.heart-top-left {
+    left: 20%;
+    top: -20px;
+    animation-delay: 0.5s;
+}
+
+.heart-top-right {
+    right: 20%;
+    top: -20px;
+    animation-delay: 1.5s;
+}
+
+.heart-bottom-left {
+    left: 20%;
+    bottom: -20px;
+    animation-delay: 2s;
+}
+
+.heart-bottom-right {
+    right: 20%;
+    bottom: -20px;
+    animation-delay: 2.5s;
+}
+
+@keyframes floatAround {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+    }
+    25% {
+        transform: translateY(-10px) scale(1.1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+    }
+    75% {
+        transform: translateY(10px) scale(0.9);
+        opacity: 0.5;
+    }
 }
 
 .heart-icon {
@@ -195,9 +302,13 @@ html, body {
 /* Floating hearts background */
 .background-hearts {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
     z-index: -1;
+    pointer-events: none;
 }
 
 .background-hearts span {
@@ -208,9 +319,10 @@ html, body {
     background: radial-gradient(circle at 30% 30%, #fff 0%, #ffd1e1 35%, #ff9cbc 70%, #ff5c8a 100%);
     transform: rotate(45deg);
     border-radius: 2px;
-    opacity: 0.6;
+    opacity: 0.8;
     animation: floatUp linear infinite;
     filter: blur(0.2px);
+    z-index: 1;
 }
 
 .background-hearts span::before,
@@ -227,26 +339,27 @@ html, body {
 .background-hearts span::after { left: 0; top: -7px; }
 
 /* Position and timing variations */
-.background-hearts span:nth-child(1) { left: 8%;  bottom: -10%; animation-duration: 18s; animation-delay: 0s; }
-.background-hearts span:nth-child(2) { left: 18%; bottom: -10%; width: 10px; height: 10px; animation-duration: 16s; animation-delay: 2s; }
-.background-hearts span:nth-child(3) { left: 28%; bottom: -10%; width: 16px; height: 16px; animation-duration: 22s; animation-delay: 1s; }
-.background-hearts span:nth-child(4) { left: 40%; bottom: -10%; width: 12px; height: 12px; animation-duration: 20s; animation-delay: 3s; }
-.background-hearts span:nth-child(5) { left: 52%; bottom: -10%; width: 18px; height: 18px; animation-duration: 26s; animation-delay: 0.5s; }
-.background-hearts span:nth-child(6) { left: 64%; bottom: -10%; width: 12px; height: 12px; animation-duration: 21s; animation-delay: 1.5s; }
-.background-hearts span:nth-child(7) { left: 74%; bottom: -10%; width: 14px; height: 14px; animation-duration: 19s; animation-delay: 2.5s; }
-.background-hearts span:nth-child(8) { left: 84%; bottom: -10%; width: 10px; height: 10px; animation-duration: 17s; animation-delay: 3.2s; }
-.background-hearts span:nth-child(9) { left: 90%; bottom: -10%; width: 16px; height: 16px; animation-duration: 24s; animation-delay: 1.8s; }
-.background-hearts span:nth-child(10){ left: 4%;  bottom: -10%; width: 12px; height: 12px; animation-duration: 23s; animation-delay: 0.8s; }
+.background-hearts span:nth-child(1) { left: 8%;  bottom: -10%; animation-duration: 8s; animation-delay: 0s; }
+.background-hearts span:nth-child(2) { left: 18%; bottom: -10%; width: 10px; height: 10px; animation-duration: 6s; animation-delay: 1s; }
+.background-hearts span:nth-child(3) { left: 28%; bottom: -10%; width: 16px; height: 16px; animation-duration: 10s; animation-delay: 0.5s; }
+.background-hearts span:nth-child(4) { left: 40%; bottom: -10%; width: 12px; height: 12px; animation-duration: 7s; animation-delay: 2s; }
+.background-hearts span:nth-child(5) { left: 52%; bottom: -10%; width: 18px; height: 18px; animation-duration: 9s; animation-delay: 0.3s; }
+.background-hearts span:nth-child(6) { left: 64%; bottom: -10%; width: 12px; height: 12px; animation-duration: 8s; animation-delay: 1.5s; }
+.background-hearts span:nth-child(7) { left: 74%; bottom: -10%; width: 14px; height: 14px; animation-duration: 6s; animation-delay: 2.5s; }
+.background-hearts span:nth-child(8) { left: 84%; bottom: -10%; width: 10px; height: 10px; animation-duration: 7s; animation-delay: 3s; }
+.background-hearts span:nth-child(9) { left: 90%; bottom: -10%; width: 16px; height: 16px; animation-duration: 9s; animation-delay: 1.8s; }
+.background-hearts span:nth-child(10){ left: 4%;  bottom: -10%; width: 12px; height: 12px; animation-duration: 8s; animation-delay: 0.8s; }
 
 @keyframes floatUp {
     0% {
-        transform: translateY(0) rotate(45deg) scale(1);
+        transform: translateY(100vh) rotate(45deg) scale(1);
         opacity: 0;
     }
-    10% { opacity: 0.5; }
-    50% { opacity: 0.7; }
+    5% { opacity: 0.8; }
+    50% { opacity: 0.8; }
+    95% { opacity: 0.8; }
     100% {
-        transform: translateY(-120vh) rotate(45deg) scale(1.1);
+        transform: translateY(-20vh) rotate(45deg) scale(1.1);
         opacity: 0;
     }
 }
