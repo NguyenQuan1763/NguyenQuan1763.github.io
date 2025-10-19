@@ -2,3 +2,286 @@ body {
     margin: 0;
     font-family: sans-serif;
 }
+
+:root {
+    --bg: #101016;
+    --fg: #ffffff;
+    --muted: #d7d7e0;
+    --primary: #ff5c8a;
+    --primary-2: #ff7aa6;
+    --card: #181824;
+    --card-border: rgba(255, 255, 255, 0.08);
+    --shadow: rgba(0, 0, 0, 0.35);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    background: radial-gradient(1200px 800px at 70% 10%, rgba(255, 92, 138, 0.08), transparent 60%),
+                radial-gradient(900px 700px at 20% 80%, rgba(255, 122, 166, 0.08), transparent 60%),
+                var(--bg);
+    color: var(--fg);
+}
+
+.container {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    align-items: start;
+    justify-items: center;
+    padding: 24px;
+    gap: 24px;
+}
+
+.hero {
+    text-align: center;
+    max-width: 900px;
+}
+
+.hero h1 {
+    margin: 16px 0 8px;
+    font-size: 32px;
+    line-height: 1.25;
+}
+
+.subtitle {
+    margin: 0;
+    color: var(--muted);
+}
+
+.card {
+    width: 100%;
+    max-width: 760px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px var(--shadow), inset 0 1px 0 rgba(255,255,255,0.06);
+    padding: 72px 24px 24px 24px; /* extra top padding for envelope flap */
+    backdrop-filter: blur(6px);
+    position: relative; /* enable pseudo-elements positioning */
+    overflow: hidden;
+}
+
+.card p {
+    margin: 0 0 16px 0;
+    color: var(--muted);
+}
+
+/* Envelope look: top flap and inner paper edge */
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    border-left: calc(50% + 2px) solid transparent;
+    border-right: calc(50% + 2px) solid transparent;
+    border-top: 60px solid rgba(255,255,255,0.10); /* flap */
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.25));
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 16px auto 0;
+    background: linear-gradient(90deg, var(--primary), var(--primary-2));
+    color: #fff;
+    text-decoration: none;
+    padding: 16px 24px;
+    border-radius: 999px;
+    font-weight: 600;
+    box-shadow: 0 6px 20px rgba(255, 92, 138, 0.35);
+    cursor: pointer;
+    transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+    justify-content: center;
+    min-width: 200px;
+}
+
+.card {
+    text-align: center;
+}
+
+.letter {
+    text-align: left;
+}
+
+.heart-icon {
+    font-size: 20px;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.btn-text {
+    font-size: 14px;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.03);
+    box-shadow: 0 10px 28px rgba(255, 92, 138, 0.45);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 1px, 1px);
+    white-space: nowrap;
+    border: 0;
+}
+
+.letter {
+    margin-top: 16px;
+    padding: 18px;
+    border: 1px dashed rgba(255,255,255,0.2);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-6px);
+    transition: max-height 0.5s ease, opacity 0.35s ease, transform 0.35s ease, padding 0.35s ease, margin 0.35s ease;
+}
+
+#reveal:checked ~ .btn {
+    opacity: 0.7;
+}
+
+#reveal:checked ~ #letter {
+    max-height: 600px;
+    opacity: 1;
+    transform: translateY(0);
+    padding: 18px;
+}
+
+.letter p {
+    margin: 0 0 12px 0;
+}
+
+.letter .signature {
+    text-align: right;
+    color: #ffd1e1;
+}
+
+.footer {
+    color: rgba(255,255,255,0.6);
+}
+
+/* Floating hearts background */
+.background-hearts {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.background-hearts span {
+    position: absolute;
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: radial-gradient(circle at 30% 30%, #fff 0%, #ffd1e1 35%, #ff9cbc 70%, #ff5c8a 100%);
+    transform: rotate(45deg);
+    border-radius: 2px;
+    opacity: 0.6;
+    animation: floatUp linear infinite;
+    filter: blur(0.2px);
+}
+
+.background-hearts span::before,
+.background-hearts span::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: inherit;
+    border-radius: 50%;
+}
+
+.background-hearts span::before { left: -7px; top: 0; }
+.background-hearts span::after { left: 0; top: -7px; }
+
+/* Position and timing variations */
+.background-hearts span:nth-child(1) { left: 8%;  bottom: -10%; animation-duration: 18s; animation-delay: 0s; }
+.background-hearts span:nth-child(2) { left: 18%; bottom: -10%; width: 10px; height: 10px; animation-duration: 16s; animation-delay: 2s; }
+.background-hearts span:nth-child(3) { left: 28%; bottom: -10%; width: 16px; height: 16px; animation-duration: 22s; animation-delay: 1s; }
+.background-hearts span:nth-child(4) { left: 40%; bottom: -10%; width: 12px; height: 12px; animation-duration: 20s; animation-delay: 3s; }
+.background-hearts span:nth-child(5) { left: 52%; bottom: -10%; width: 18px; height: 18px; animation-duration: 26s; animation-delay: 0.5s; }
+.background-hearts span:nth-child(6) { left: 64%; bottom: -10%; width: 12px; height: 12px; animation-duration: 21s; animation-delay: 1.5s; }
+.background-hearts span:nth-child(7) { left: 74%; bottom: -10%; width: 14px; height: 14px; animation-duration: 19s; animation-delay: 2.5s; }
+.background-hearts span:nth-child(8) { left: 84%; bottom: -10%; width: 10px; height: 10px; animation-duration: 17s; animation-delay: 3.2s; }
+.background-hearts span:nth-child(9) { left: 90%; bottom: -10%; width: 16px; height: 16px; animation-duration: 24s; animation-delay: 1.8s; }
+.background-hearts span:nth-child(10){ left: 4%;  bottom: -10%; width: 12px; height: 12px; animation-duration: 23s; animation-delay: 0.8s; }
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(45deg) scale(1);
+        opacity: 0;
+    }
+    10% { opacity: 0.5; }
+    50% { opacity: 0.7; }
+    100% {
+        transform: translateY(-120vh) rotate(45deg) scale(1.1);
+        opacity: 0;
+    }
+}
+
+/* Centered white letter card on top of effects */
+.letter-center {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    z-index: 5;
+}
+
+.card--white {
+    background: #ffffff;
+    color: #222;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.card--white::before {
+    border-top-color: rgba(0,0,0,0.06);
+}
+
+.card--white .subtitle { color: #666; }
+.card--white p { color: #333; }
+
+/* Responsive */
+@media (min-width: 720px) {
+    .hero h1 { font-size: 40px; }
+}
+
+@media (min-width: 1024px) {
+    .hero h1 { font-size: 48px; }
+    .container { padding: 40px; gap: 28px; }
+    .card { padding: 28px; }
+}
